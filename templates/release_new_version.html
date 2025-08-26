@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>New Version Form - Version Management System</title>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/release_new_version.css')}}">
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>New Version Entry</h2>
+      <form
+        action="/version/new"
+        method="POST"
+        id="versionForm"
+        autocomplete="off"
+      >
+        <div>
+          <label for="username">User</label>
+          <input
+            type="text"
+            id="username"
+            value="{{session['Username']}}"
+            name="Username"
+            readonly
+          />
+        </div>
+        <div>
+          <label for="role">Role</label>
+          <input
+            type="text"
+            id="role"
+            value="{{session['Role']}}"
+            name="Role"
+            readonly
+          />
+        </div>
+        <div>
+          <label for="application">Application Name</label>
+          <select name="Application" id="application" required>
+            <option value="" disabled selected>Select Application</option>
+            {% for item in appl_data %}
+            <option value="{{ item[0] }}">{{ item[0] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label for="module">Module Name</label>
+          <select name="Module" id="module" required>
+            <option value="" disabled selected>Select Module</option>
+            {% for item in mod_data %}
+            <option value="{{ item[0] }}">{{ item[0] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label for="submodule">Submodule</label>
+          <select name="Submodule" id="submodule" required>
+            <option value="" disabled selected>Select Submodule</option>
+            {% for item in submod_data %}
+            <option value="{{ item[0] }}">{{ item[0] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label for="environment">Environment</label>
+          <select name="ENV" id="environment" required>
+            <option value="" disabled selected>Select Environment</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="technology">Technology</label>
+          <select name="Technology" id="technology" required>
+            <option value="" disabled selected>Select Technology</option>
+            <option value="Angular JS">Angular JS</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="versionType">Version Type</label>
+          <select name="VersionType" id="versionType" required>
+            <option value="" disabled selected>Select Version Type</option>
+            <option value="Major">Major</option>
+            <option value="Minor">Minor</option>
+            <option value="Bugfix">Bugfix</option>
+            <option value="Hotfix">Hotfix</option>
+            <option value="Feature">Feature</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="version">Version</label>
+          <input
+            type="text"
+            name="Version"
+            id="version"
+            placeholder="e.g. 1.1.0"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="status">Status</label>
+          <select name="VersionStatus" id="status" required>
+            <option value="" disabled selected>Select Status</option>
+            <option value="Released">Released</option>
+            <option value="In Progress">In Progress</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Roll Back">Roll Back</option>
+            <option value="Upcoming">Upcoming</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="bugId">Bug ID</label>
+          <input type="text" name="BugID" id="bugId" placeholder="e.g. B101" />
+        </div>
+
+        <div>
+          <label for="ticketId">Ticket ID</label>
+          <input
+            type="text"
+            name="TicketID"
+            id="ticketId"
+            placeholder="e.g. T-2209"
+          />
+        </div>
+
+        <div class="full-width">
+          <label for="releaseDate">Release Date</label>
+          <input type="date" name="ReleaseDate" id="releaseDate" />
+        </div>
+
+        <div class="full-width">
+          <label for="description">Description</label>
+          <textarea
+            name="Description"
+            id="description"
+            placeholder="Enter detailed description here..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit">Submit Version</button>
+        <a href="{{url_for('home')}}" class="back-btn">⬅ Back to Home</a>
+      </form>
+    </div>
+
+    <script>
+      const releaseDateInput = document.getElementById("releaseDate");
+      const dateDisplay = document.getElementById("dateDisplay");
+
+      // Set today's date as default
+      const today = new Date().toISOString().split("T")[0];
+      releaseDateInput.value = today;
+      releaseDateInput.min = today;
+      dateDisplay.textContent = `Selected Date: ${today}`;
+
+      // Update displayed date on change
+      releaseDateInput.addEventListener("input", () => {
+        dateDisplay.textContent = `Selected Date: ${releaseDateInput.value}`;
+      });
+    </script>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");  // or use toastr.success(messages[0])
+        </script>
+    {% endif %}
+{% endwith %}
+  </body>
+</html>

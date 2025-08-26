@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Management System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a73e8, #004e92);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            background: #ff9800;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            background: #e68900;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .btn.secondary {
+            background: #4caf50;
+        }
+
+        .btn.secondary:hover {
+            background: #3e8e41;
+        }
+
+        .btn.logout {
+            background: #f44336;
+        }
+
+        .btn.logout:hover {
+            background: #d32f2f;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Version Management System</h1>
+    <p>✨ Welcome, {{session['Username']}}! ✨</p>
+
+    <div class="button-container">
+        <a href="{{url_for('release_version')}}"><button class="btn">New Version</button></a>
+        <a href="{{url_for('version_history')}}"><button class="btn secondary">Version History</button></a>
+        <a href="{{url_for('logout')}}"><button class="btn logout">Logout</button></a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");  // or use toastr.success(messages[0])
+        </script>
+    {% endif %}
+    {% endwith %}
+
+</body>
+</html>

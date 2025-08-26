@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Version Management System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #283048, #859398);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-container {
+        background-color: rgba(255, 255, 255, 0.08);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 350px;
+        text-align: center;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-size: 28px;
+        color: #f0f0f0;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      label {
+        font-size: 14px;
+        color: #ddd;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+      }
+
+      .login-btn {
+        background-color: #1abc9c;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        width: 48%;
+      }
+
+      .login-btn:hover {
+        background-color: #16a085;
+      }
+
+      .register-btn {
+        background-color: #3498db;
+        color: white;
+        padding: 10px 0; /* make vertical padding match login btn */
+        border-radius: 8px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        width: 48%;
+        display: inline-block; /* ensures proper button sizing inside <a> */
+        text-align: center; /* center text inside button */
+        text-decoration: none; /* remove underline if using <a> */
+      }
+
+      .register-btn:hover {
+        background-color: #2980b9;
+      }
+
+      .btn-row {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h1>Version Management System</h1>
+      <form action="/employee/login" method="POST">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="Username"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="PasswordHash"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="login-btn">Login</button>
+          <a href="{{url_for('emp_register_form')}}" class="register-btn">Register</a>
+        </div>
+      </form>
+    </div>
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <script>
+      alert("{{ messages[0] }}"); // or use toastr.success(messages[0])
+    </script>
+    {% endif %} {% endwith %}
+  </body>
+</html>
